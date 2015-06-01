@@ -94,16 +94,13 @@ public class MainActivity extends Activity implements SensorEventListener {
     @Override
     protected void onResume() {
         super.onResume();
-//        activityRunning = true;
-        // I believe unnecessary because we did not unregister the sensor
         registerSensor();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //activityRunning = false;
-        // if you unregister the last listener, the hardware will stop detecting step events
+         // if you unregister the last listener, the hardware will stop detecting step events
 //        sensorManager.unregisterListener(this); 
     }
 
