@@ -28,9 +28,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     private SensorManager sensorManager;
     private TextView count;
-    boolean activityRunning;
+//    boolean activityRunning;
     int mBaseSteps=0;
-    boolean mFoundBase=false;
+    boolean mFoundStepBase =false;
     static PowerManager.WakeLock mWakeLock;
     private Intent mService;
 
@@ -94,7 +94,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     @Override
     protected void onResume() {
         super.onResume();
-        activityRunning = true;
+//        activityRunning = true;
         // I believe unnecessary because we did not unregister the sensor
         registerSensor();
     }
@@ -102,23 +102,22 @@ public class MainActivity extends Activity implements SensorEventListener {
     @Override
     protected void onPause() {
         super.onPause();
-        activityRunning = false;
+        //activityRunning = false;
         // if you unregister the last listener, the hardware will stop detecting step events
 //        sensorManager.unregisterListener(this); 
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (activityRunning) {
-            String str= String.valueOf(event.values[0]);
-            int currSteps= (int)Float.parseFloat(str);
-            if (!mFoundBase) {
-                mBaseSteps= currSteps;
-                mFoundBase= true;
-            }
-            Log.i("STEPS:", "Steps currently: " + (currSteps-mBaseSteps)+ "/"+currSteps);
-            count.setText("Steps currently: " + (currSteps-mBaseSteps)+ "/"+currSteps);
+        String str = String.valueOf(event.values[0]);
+        int currSteps = (int) Float.parseFloat(str);
+        if (!mFoundStepBase) {
+            mBaseSteps = currSteps;
+            mFoundStepBase = true;
         }
+        Log.i("STEPS:", "Steps currently: " + (currSteps - mBaseSteps) + "/" + currSteps);
+        count.setText("Steps currently: " + (currSteps - mBaseSteps) + "/" + currSteps);
+
 
     }
 
